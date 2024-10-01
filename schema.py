@@ -20,7 +20,7 @@ class ShortDialogue(BaseModel):
     scratchpad: str
     name_of_guest: str
     dialogue: List[DialogueItem] = Field(
-        ..., description="A list of dialogue items, typically between 5 to 9 items"
+        ..., description="A list of dialogue items, typically between 11 to 17 items"
     )
 
 
@@ -30,5 +30,5 @@ class MediumDialogue(BaseModel):
     scratchpad: str
     name_of_guest: str
     dialogue: List[DialogueItem] = Field(
-        ..., description="A list of dialogue items, typically between 8 to 13 items"
+        ..., description="A list of dialogue items, typically between 19 to 29 items"
     )

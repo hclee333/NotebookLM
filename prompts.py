@@ -51,6 +51,8 @@ You are a world-class podcast producer tasked with transforming the provided inp
    - Include brief "breather" moments for listeners to absorb complex information
    - End on a high note, perhaps with a thought-provoking question or a call-to-action for listeners
 
+IMPORTANT RULE: Each line of dialogue should be no more than 100 characters (e.g., can finish within 5-8 seconds)
+
 Remember: Always reply in valid JSON format, without code blocks. Begin directly with the JSON output.
 """
 

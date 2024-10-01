@@ -74,7 +74,7 @@ def generate_script(
             system_prompt_with_error = f"{system_prompt}\n\nPlease return a VALID JSON object. This was the earlier error: {error_message}"
             response = call_llm(system_prompt_with_error, input_text, output_model)
             response_json = response.choices[0].message.content
-            dialogue = output_model.model_validate_json(response_json)
+            first_draft_dialogue = output_model.model_validate_json(response_json)
 
     # Call the LLM a second time to improve the dialogue
     system_prompt_with_dialogue = f"{system_prompt}\n\nHere is the first draft of the dialogue you provided:\n\n{first_draft_dialogue}."
@@ -132,25 +132,25 @@ def parse_url(url: str) -> str:
                 raise ValueError(
                     f"Failed to fetch URL after {JINA_RETRY_ATTEMPTS} attempts: {e}"
                 ) from e
-            time.sleep(JINA_RETRY_DELAY)  # Wait for 1 second before retrying
+            time.sleep(JINA_RETRY_DELAY)  # Wait for X second before retrying
     return response.text
 
 
 def generate_podcast_audio(
-    text: str, speaker: str, language: str, use_advanced_audio: bool
+    text: str, speaker: str, language: str, use_advanced_audio: bool, random_voice_number: int
 ) -> str:
     """Generate audio for podcast using TTS or advanced audio models."""
     if use_advanced_audio:
-        return _use_suno_model(text, speaker, language)
+        return _use_suno_model(text, speaker, language, random_voice_number)
     else:
         return _use_melotts_api(text, speaker, language)
 
 
-def _use_suno_model(text: str, speaker: str, language: str) -> str:
+def _use_suno_model(text: str, speaker: str, language: str, random_voice_number: int) -> str:
     """Generate advanced audio using Bark."""
     audio_array = generate_audio(
         text,
-        history_prompt=f"v2/{language}_speaker_{'1' if speaker == 'Host (Jane)' else '3'}",
+        history_prompt=f"v2/{language}_speaker_{random_voice_number if speaker == 'Host (Jane)' else random_voice_number + 1}",
     )
     file_path = f"audio_{language}_{speaker}.mp3"
     write_wav(file_path, SAMPLE_RATE, audio_array)
@@ -173,7 +173,7 @@ def _use_melotts_api(text: str, speaker: str, language: str) -> str:
         except Exception as e:
             if attempt == MELO_RETRY_ATTEMPTS - 1:  # Last attempt
                 raise  # Re-raise the last exception if all attempts fail
-            time.sleep(MELO_RETRY_DELAY)  # Wait for 1 second before retrying
+            time.sleep(MELO_RETRY_DELAY)  # Wait for X second before retrying
 
 
 def _get_melo_tts_params(speaker: str, language: str) -> tuple[str, float]:

@@ -4,6 +4,8 @@ constants.py
 
 import os
 
+from pathlib import Path
+
 # Key constants
 APP_TITLE = "Open NotebookLM"
 CHARACTER_LIMIT = 100_000
@@ -81,7 +83,7 @@ UI_DESCRIPTION = """
       <img src="https://raw.githubusercontent.com/gabrielchua/daily-ai-papers/main/_includes/icon.png" alt="Open NotebookLM" width="120" style="margin-bottom: 10px;">
     </td>
     <td style="border: none; vertical-align: top; padding: 10px;">
-      <p style="margin-bottom: 15px;"><strong>Convert</strong> your PDFs into podcasts with open-source AI models (Llama 3.1 405B and MeloTTS).</p>
+      <p style="margin-bottom: 15px;">Convert your PDFs into podcasts with open-source AI models (<a href="https://huggingface.co/meta-llama/Llama-3.1-405B">Llama 3.1 405B</a>, <a href="https://huggingface.co/myshell-ai/MeloTTS-English">MeloTTS</a>, <a href="https://huggingface.co/suno/bark">Bark</a>).</p>
       <p style="margin-top: 15px;">Note: Only the text content of the PDFs will be processed. Images and tables are not included. The total content should be no more than 100,000 characters due to the context length of Llama 3.1 405B.</p>
     </td>
   </tr>
@@ -139,7 +141,7 @@ UI_EXAMPLES = [
         "Fun",
         "Short (1-2 min)",
         "English",
-        True,
+        False,
     ],
     [
         [],

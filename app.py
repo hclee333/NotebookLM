@@ -12,6 +12,7 @@ from typing import List, Tuple, Optional
 
 # Third-party imports
 import gradio as gr
+import random
 from loguru import logger
 from pypdf import PdfReader
 from pydub import AudioSegment
@@ -63,6 +64,9 @@ def generate_podcast(
     """Generate the audio and transcript from the PDFs and/or URL."""
 
     text = ""
+
+    # Choose random number from 0 to 9
+    random_voice_number = random.randint(0, 9) # this is for suno model
 
     if not use_advanced_audio and language in NOT_SUPPORTED_IN_MELO_TTS:
         raise gr.Error(ERROR_MESSAGE_NOT_SUPPORTED_IN_MELO_TTS)
@@ -137,7 +141,7 @@ def generate_podcast(
 
         # Get audio file path
         audio_file_path = generate_podcast_audio(
-            line.text, line.speaker, language_for_tts, use_advanced_audio
+            line.text, line.speaker, language_for_tts, use_advanced_audio, random_voice_number
         )
         # Read the audio file into an AudioSegment
         audio_segment = AudioSegment.from_file(audio_file_path)
@@ -215,8 +219,8 @@ demo = gr.Interface(
     api_name=UI_API_NAME,
     theme=gr.themes.Soft(),
     concurrency_limit=UI_CONCURRENCY_LIMIT,
-    examples=UI_EXAMPLES,
-    cache_examples=UI_CACHE_EXAMPLES,
+    # examples=UI_EXAMPLES,
+    # cache_examples=UI_CACHE_EXAMPLES,
 )
 
 if __name__ == "__main__":
