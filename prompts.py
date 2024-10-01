@@ -53,3 +53,14 @@ You are a world-class podcast producer tasked with transforming the provided inp
 
 Remember: Always reply in valid JSON format, without code blocks. Begin directly with the JSON output.
 """
+
+QUESTION_MODIFIER = "PLEASE ANSWER THE FOLLOWING QN:"
+
+TONE_MODIFIER = "TONE: The tone of the podcast should be"
+
+LANGUAGE_MODIFIER = "OUTPUT LANGUAGE <IMPORTANT>: The the podcast should be"
+
+LENGTH_MODIFIERS = {
+    "Short (1-2 min)": "Keep the podcast brief, around 1-2 minutes long.",
+    "Medium (3-5 min)": "Aim for a moderate length, about 3-5 minutes.",
+}
