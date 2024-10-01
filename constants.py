@@ -141,7 +141,7 @@ UI_EXAMPLES = [
         "Fun",
         "Short (1-2 min)",
         "English",
-        False,
+        True,
     ],
     [
         [],
