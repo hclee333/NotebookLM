@@ -129,7 +129,7 @@ def generate_podcast(
     # Modify the system prompt based on the user input
     modified_system_prompt = SYSTEM_PROMPT
     if question:
-        modified_system_prompt += f"\n\PLEASE ANSWER THE FOLLOWING QN: {question}"
+        modified_system_prompt += f"\n\nPLEASE ANSWER THE FOLLOWING QN: {question}"
     if tone:
         modified_system_prompt += f"\n\nTONE: The tone of the podcast should be {tone}."
     if length:
